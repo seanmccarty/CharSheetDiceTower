@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<root>
+	<!-- FG Options Menu-->
+	<string name="CSDT_option_label_initiative">Table: Dice tower for initiative rolls</string>
+	<string name="CSDT_option_label_ability">Table: Dice tower for ability checks</string>
+	<string name="CSDT_option_label_save">Table: Dice tower for saving throws</string>
+	<string name="CSDT_option_label_skill">Table: Dice tower for skill checks</string>
+</root>

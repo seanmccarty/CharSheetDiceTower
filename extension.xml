@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<root version="3.0">
+	<properties>
+		<name>Feature: Character Sheet Dice Tower</name>
+		<version>~dev_version_short~</version>
+		<author>mccartysr</author>
+		<description>Character Sheet Dice Tower</description>
+		<loadorder>50</loadorder>
+		<ruleset>
+			<name>3.5E</name>
+		</ruleset>
+		<ruleset>
+			<name>5E</name>
+		</ruleset>
+		<ruleset>
+			<name>CoreRPG</name>
+		</ruleset>
+		<ruleset>
+			<name>PFRPG</name>
+		</ruleset>
+		<ruleset>
+			<name>PFRPG2</name>
+		</ruleset>
+	</properties>
+	<announcement text="Character Sheet Dice Tower ~dev_version~ by mccartysr, 2024" font="emotefont" icon="Logo_Mccartysr"/>
+	<base>		
+		<includefile source="xml/resources.xml" />
+	</base>    
+</root>

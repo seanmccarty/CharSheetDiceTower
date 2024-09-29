@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- 5E specific modifications to the character sheet. Each was adopted from the relevant performRoll(). -->
+<root>
+	<!-- Adjust anchor location for mini dicetower -->
+	<windowclass name="charsheet_overview" merge="join">
+		<sheetdata>
+			<genericcontrol name="CSDT_diceTower" insertbefore="nametitle"/>
+		</sheetdata>
+	</windowclass>
+	
+	<template name="number_charabilityscore" merge="join">
+		<number_abilityscore>
+			<script>
+				function onDoubleClick(x, y)
+					if rollable then
+						if OptionsManager.isOption("TBOX", "on") and OptionsManager.isOption("CSDT_option_label_ability", "on") then
+							local rActor = ActorManager.resolveActor(window.getDatabaseNode());
+							local rRoll = ActionCheck.getRoll(rActor, self.target[1]);
+							DiceTowerManager.sendRoll(rRoll, rActor);
+							return true;
+						else
+							return action();
+						end
+					end
+				end
+			</script>
+		</number_abilityscore>
+	</template>
+
+	<template name="number_charabilitysave" merge="join">
+		<number_chartotal>
+			<script>
+				function onDoubleClick(x,y)
+					if OptionsManager.isOption("TBOX", "on") and OptionsManager.isOption("CSDT_option_label_save", "on") then
+						local rActor = ActorManager.resolveActor(window.getDatabaseNode());
+						local rRoll = ActionSave.getRoll(rActor, self.target[1]);
+						DiceTowerManager.sendRoll(rRoll, rActor);
+						return true;
+					else
+						return action();
+					end
+				end
+			</script>
+		</number_chartotal>
+	</template>
+
+	<template name="number_charskilltotal" merge="join">
+		<number_linked>
+			<script>
+				function onDoubleClick(x,y)
+					if OptionsManager.isOption("TBOX", "on") and OptionsManager.isOption("CSDT_option_label_skill", "on") then
+						local nodeSkill = window.getDatabaseNode();
+						local nodeChar = nodeSkill.getChild("...");
+						local rActor = ActorManager.resolveActor(nodeChar);
+
+						local rRoll = ActionSkill.getRoll(rActor, nodeSkill);
+						DiceTowerManager.sendRoll(rRoll, rActor);
+						return true;
+					else
+						return action();
+					end
+				end
+			</script>
+		</number_linked>
+	</template>
+</root>

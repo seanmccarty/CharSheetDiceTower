@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- 3.5E (and inherting/similar rulesets) specific modifications to the character sheet. Each was adopted from the relevant performRoll() or character sheet code. -->
+<root>
+	<template name="number_charabilitybonus" merge="join">
+		<number_chartotal>
+			<script>
+				function onDoubleClick(x,y)
+					if OptionsManager.isOption("TBOX", "on") and OptionsManager.isOption("CSDT_option_label_ability", "on") then
+						local rActor = ActorManager.resolveActor(window.getDatabaseNode());
+						local rRoll = ActionAbility.getRoll(rActor, self.target[1]);
+						DiceTowerManager.sendRoll(rRoll, rActor);
+						return true;
+					else
+						return action();
+					end
+				end
+			</script>
+		</number_chartotal>
+	</template>
+
+	<template name="number_charsave" merge="join">
+		<number_chartotalwithability>
+			<script>
+				function onDoubleClick(x,y)
+					if OptionsManager.isOption("TBOX", "on") and OptionsManager.isOption("CSDT_option_label_save", "on") then
+						local rActor = ActorManager.resolveActor(window.getDatabaseNode());
+						local rRoll = ActionSave.getRoll(rActor, self.target[1]);
+						DiceTowerManager.sendRoll(rRoll, rActor);
+						return true;
+					else
+						return action();
+					end
+				end
+			</script>
+		</number_chartotalwithability>
+	</template>
+
+	<template name="button_charmainskill" merge="join">
+		<button_roll>
+			<script>
+				function onButtonPress()
+					if OptionsManager.isOption("TBOX", "on") and OptionsManager.isOption("CSDT_option_label_skill", "on") then
+						local sSkill = Interface.getString(skill[1]);	
+						local rActor = ActorManager.resolveActor(window.getDatabaseNode());
+						local nValue = CharManager.getSkillValue(rActor, sSkill);
+						local rRoll = ActionSkill.getRoll(rActor, sSkill, nValue);
+						DiceTowerManager.sendRoll(rRoll, rActor);
+						return true;
+					else
+						return action();
+					end
+				end
+			</script>
+		</button_roll>
+	</template>
+
+	<template name="number_charskilltotal" merge="join">
+		<number_linked>
+				<script>
+				function action(draginfo)
+					local nodeWin = window.getDatabaseNode();
+					if nodeWin then
+						local rActor = ActorManager.resolveActor(nodeWin.getChild("..."));
+						ActionSkill.performPCRoll(draginfo, rActor, nodeWin);
+					end
+	
+					return true;
+				end
+
+				function onDoubleClick(x,y)	
+					if OptionsManager.isOption("TBOX", "on") and OptionsManager.isOption("CSDT_option_label_skill", "on") then
+						local nodeSkill = window.getDatabaseNode();
+						local nodeChar = nodeSkill.getChild("...");
+						local rActor = ActorManager.resolveActor(nodeChar);	
+						
+						local sSkillName = DB.getValue(nodeSkill, "label", "");
+						local sSubskillName = DB.getValue(nodeSkill, "sublabel", "");
+						if sSubskillName ~= "" then
+							sSkillName = sSkillName .. " (" .. sSubskillName .. ")";
+						end
+					
+						local nSkillMod = DB.getValue(nodeSkill, "total", 0);
+						local sSkillStat = DB.getValue(nodeSkill, "statname", "");
+
+						local rRoll = ActionSkill.getRoll(rActor, sSkillName, nSkillMod, sSkillStat);
+						DiceTowerManager.sendRoll(rRoll, rActor);
+						return true;
+					else
+						return action();
+					end
+				end
+			</script>
+		</number_linked>
+	</template>
+</root>
