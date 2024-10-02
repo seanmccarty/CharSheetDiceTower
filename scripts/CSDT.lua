@@ -21,17 +21,24 @@ function onInit()
 	end
 end
 
+---Overrides ActionSave.performDeathRoll to divert rolls to the tower
 function performDeathRoll(draginfo, rActor, bAuto)
-	local rRoll = { };
-	if bAuto then
-		rRoll.sType = "death_auto";
+	-- if draginfo is defined, the icon is being dragged somewhere. Otherwise, it was a double click or death_auto, so we divert those.
+	if (not draginfo) and OptionsManager.isOption("TBOX", "on") and OptionsManager.isOption("CSDT_option_label_death", "on") then
+		local rRoll = { };
+		if bAuto then
+			rRoll.sType = "death_auto";
+		else
+			rRoll.sType = "death";
+		end
+		rRoll.aDice = DiceRollManager.getActorDice({ "d20" }, rActor);
+		rRoll.nMod = 0;
+		
+		rRoll.sDesc = "[DEATH]";
+		
+		DiceTowerManager.sendRoll(rRoll, rActor);
 	else
-		rRoll.sType = "death";
+		fOriginalPerformDeathRoll(draginfo, rActor, bAuto);
 	end
-	rRoll.aDice = DiceRollManager.getActorDice({ "d20" }, rActor);
-	rRoll.nMod = 0;
-	
-	rRoll.sDesc = "[DEATH]";
-	
-	ActionsManager.performAction(draginfo, rActor, rRoll);
+
 end
