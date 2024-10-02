@@ -22,6 +22,9 @@
 		<ruleset>
 			<name>PFRPG2</name>
 		</ruleset>
+		<ruleset>
+			<name>SFRPG2</name>
+		</ruleset>
 	</properties>
 	<announcement text="Character Sheet Dice Tower ~dev_version~ by mccartysr, 2024" font="emotefont" icon="Logo_Mccartysr"/>
 	<base>		

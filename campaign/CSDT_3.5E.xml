@@ -92,4 +92,58 @@
 			</script>
 		</number_linked>
 	</template>
+
+	<template name="number_charinit_perception" merge="join" ruleset="PFRPG2|SFRPG2">
+		<number_chartotal>
+			<script>
+				function onDoubleClick(x,y)	
+					if OptionsManager.isOption("TBOX", "on") and OptionsManager.isOption("CSDT_option_label_initiative", "on") then
+						local sSkillname = skillname[1];
+						if not sSkillname or sSkillname == "" then
+							sSkillname = "Perception";
+						end
+						
+						local nodeChar = window.getDatabaseNode();
+						local rActor = ActorManager.resolveActor(window.getDatabaseNode());
+						rActor.sSkillname = sSkillname;
+						rActor.nInitMod = DB.getValue(nodeChar, "initiative.misc", 0) + DB.getValue(nodeChar, "initiative.perceptiontemp", 0);
+						
+						rRoll = ActionInit.getRoll(rActor);
+						DiceTowerManager.sendRoll(rRoll, rActor);
+						return true;
+					else
+						return action();
+					end
+				end
+			</script>
+		</number_chartotal>
+	</template>
+
+	<template name="number_charinit_playtest" merge="join" ruleset="PFRPG2|SFRPG2">
+		<number_chartotal>
+			<script>
+				function onDoubleClick(x,y)	
+					if OptionsManager.isOption("TBOX", "on") and OptionsManager.isOption("CSDT_option_label_initiative", "on") then
+						local sSkillname = skillname[1];
+						if not sSkillname or sSkillname == "" then
+							sSkillname = "Perception";
+						end
+						
+						local nodeChar = window.getDatabaseNode();
+						local rActor = ActorManager.resolveActor(window.getDatabaseNode());
+						rActor.sSkillname = sSkillname;
+						rActor.nInitMod = DB.getValue(nodeChar, "initiative.misc", 0) + DB.getValue(nodeChar, modifierfield[1], 0);
+						
+						GlobalDebug.consoleObjects("Rolling INIT.  Modifier rActor.nInitMod = ", rActor.nInitMod);
+						
+						rRoll = ActionInit.getRoll(rActor);
+						DiceTowerManager.sendRoll(rRoll, rActor);
+						return true;
+					else
+						return action();
+					end
+				end
+			</script>			
+		</number_chartotal>
+	</template>			
 </root>
