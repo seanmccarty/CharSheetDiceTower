@@ -108,7 +108,7 @@
 						rActor.sSkillname = sSkillname;
 						rActor.nInitMod = DB.getValue(nodeChar, "initiative.misc", 0) + DB.getValue(nodeChar, "initiative.perceptiontemp", 0);
 						
-						rRoll = ActionInit.getRoll(rActor);
+						local rRoll = ActionInit.getRoll(rActor);
 						DiceTowerManager.sendRoll(rRoll, rActor);
 						return true;
 					else
@@ -136,7 +136,7 @@
 						
 						GlobalDebug.consoleObjects("Rolling INIT.  Modifier rActor.nInitMod = ", rActor.nInitMod);
 						
-						rRoll = ActionInit.getRoll(rActor);
+						local rRoll = ActionInit.getRoll(rActor);
 						DiceTowerManager.sendRoll(rRoll, rActor);
 						return true;
 					else
