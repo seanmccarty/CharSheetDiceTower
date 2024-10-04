@@ -39,6 +39,7 @@
 					if OptionsManager.isOption("TBOX", "on") and OptionsManager.isOption("CSDT_option_label_initiative", "on") then
 						local rActor = ActorManager.resolveActor(window.getDatabaseNode());
 						local rRoll = ActionInit.getRoll(rActor);
+						ActionsManager.applyModifiers(rActor, nil, rRoll);
 						DiceTowerManager.sendRoll(rRoll, rActor);
 						return true;
 					else
