@@ -6,6 +6,7 @@
 	<includefile source="campaign/CSDT_record_char.xml" />
 	<includefile ruleset="PFRPG|3.5E|PFRPG2|SFRPG2" source="campaign/CSDT_3.5E.xml" />
 	<includefile ruleset="5E" source="campaign/CSDT_5E.xml" />
+	<includefile ruleset="2E" source="campaign/CSDT_2E.xml" />
 
 	<!-- Manager Code -->
 	<script name="CSDT" file="scripts/CSDT.lua" />
