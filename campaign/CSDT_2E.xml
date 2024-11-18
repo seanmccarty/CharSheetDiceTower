@@ -111,4 +111,22 @@
 			</script>
 		</number_abilityfield_noplus>
 	</template>
+
+	<template name="number_charinit_charsheet" merge="join">
+		<number_chartotal>
+			<script>
+				function onDoubleClick(x,y)
+					if OptionsManager.isOption("TBOX", "on") and OptionsManager.isOption("CSDT_option_label_initiative", "on") then
+						local rActor = ActorManager.resolveActor( window.getDatabaseNode());
+						local rRoll = ActionInit.getRoll(rActor, true);
+						ActionsManager.applyModifiers(rActor, nil, rRoll);
+						DiceTowerManager.sendRoll(rRoll, rActor);
+						return true;
+					else
+						return action();
+					end
+				end
+			</script>
+		</number_chartotal>
+	</template>
 </root>
