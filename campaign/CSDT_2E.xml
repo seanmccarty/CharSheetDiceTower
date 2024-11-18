@@ -61,4 +61,54 @@
 			</script>
 		</basicnumber>
 	</template>
+
+	<!-- copied from number_abilityscore.lua -->
+	<template name="number_charabilityscore2" merge="join">
+		<basicnumber>
+			<script>
+				function onDoubleClick(x,y)
+					if rollable then
+						if OptionsManager.isOption("TBOX", "on") and OptionsManager.isOption("CSDT_option_label_ability", "on") then
+							local rActor = ActorManager.resolveActor(window.getDatabaseNode());
+							-- local nodeActor = ActorManager.getCreatureNode(rActor);
+							local nodeType, nodeActor = ActorManager.getTypeAndNode(rActor);
+						
+							local nTargetDC = DB.getValue(nodeActor, "abilities." .. self.target[1] .. ".score", 0);
+							local rRoll = ActionCheck.getRoll(rActor, self.target[1], nTargetDC, true);
+							ActionsManager.applyModifiers(rActor, nil, rRoll);
+							DiceTowerManager.sendRoll(rRoll, rActor);
+							return true;
+						else
+							return action();
+						end
+					end
+				end
+			</script>
+		</basicnumber>
+	</template>
+
+	<template name="number_abilityfield_noplus_percentchecks" merge="join">
+		<number_abilityfield_noplus>
+			<script>
+				function onDoubleClick(x,y)
+					if OptionsManager.isOption("TBOX", "on") and OptionsManager.isOption("CSDT_option_label_ability", "on") then
+						local nodeChar = getDatabaseNode().getChild("....");
+						local nTargetDC = getValue();
+						if check_type and check_type[1] == 'reverse' then
+							nTargetDC = 100 - getValue();
+						end
+						local rActor = ActorManager.resolveActor( nodeChar);
+
+						local aCheckDice = { "d100" };
+						local rRoll = ActionCheck.getRoll(rActor, self.target[1], nTargetDC, true, aCheckDice );
+						ActionsManager.applyModifiers(rActor, nil, rRoll);
+						DiceTowerManager.sendRoll(rRoll, rActor);
+						return true;
+					else
+						return action();
+					end
+				end
+			</script>
+		</number_abilityfield_noplus>
+	</template>
 </root>
