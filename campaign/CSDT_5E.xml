@@ -7,63 +7,31 @@
 			<genericcontrol name="CSDT_diceTower" insertbefore="nametitle"/>
 		</sheetdata>
 	</windowclass>
+
+	<windowclass name="charsheet_main" merge="join">
+		<script file="campaign/CSDT_5E.lua"/>
+	</windowclass>
 	
-	<template name="number_charabilityscore" merge="join">
-		<number_abilityscore>
-			<script>
-				function onDoubleClick(x, y)
-					if rollable then
-						if OptionsManager.isOption("TBOX", "on") and OptionsManager.isOption("CSDT_option_label_ability", "on") then
-							local rActor = ActorManager.resolveActor(window.getDatabaseNode());
-							local rRoll = ActionCheck.getRoll(rActor, self.target[1]);
+	<windowclass name="char_skill_item" merge="join">
+		<sheetdata>
+			<button_listitem_roll_right name="button_roll">
+				<script>
+					function onButtonPress()
+						if OptionsManager.isOption("TBOX", "on") and OptionsManager.isOption("CSDT_option_label_skill", "on") then
+							local nodeSkill = window.getDatabaseNode();
+							local nodeChar = nodeSkill.getChild("...");
+							local rActor = ActorManager.resolveActor(nodeChar);
+
+							local rRoll = ActionSkill.getRoll(rActor, nodeSkill);
 							ActionsManager.applyModifiers(rActor, nil, rRoll);
 							DiceTowerManager.sendRoll(rRoll, rActor);
 							return true;
 						else
-							return action();
+							return window.action();
 						end
 					end
-				end
-			</script>
-		</number_abilityscore>
-	</template>
-
-	<template name="number_charabilitysave" merge="join">
-		<number_chartotal>
-			<script>
-				function onDoubleClick(x,y)
-					if OptionsManager.isOption("TBOX", "on") and OptionsManager.isOption("CSDT_option_label_save", "on") then
-						local rActor = ActorManager.resolveActor(window.getDatabaseNode());
-						local rRoll = ActionSave.getRoll(rActor, self.target[1]);
-						ActionsManager.applyModifiers(rActor, nil, rRoll);
-						DiceTowerManager.sendRoll(rRoll, rActor);
-						return true;
-					else
-						return action();
-					end
-				end
-			</script>
-		</number_chartotal>
-	</template>
-
-	<template name="number_charskilltotal" merge="join">
-		<number_linked>
-			<script>
-				function onDoubleClick(x,y)
-					if OptionsManager.isOption("TBOX", "on") and OptionsManager.isOption("CSDT_option_label_skill", "on") then
-						local nodeSkill = window.getDatabaseNode();
-						local nodeChar = nodeSkill.getChild("...");
-						local rActor = ActorManager.resolveActor(nodeChar);
-
-						local rRoll = ActionSkill.getRoll(rActor, nodeSkill);
-						ActionsManager.applyModifiers(rActor, nil, rRoll);
-						DiceTowerManager.sendRoll(rRoll, rActor);
-						return true;
-					else
-						return action();
-					end
-				end
-			</script>
-		</number_linked>
-	</template>
+				</script>
+			</button_listitem_roll_right>
+		</sheetdata>
+	</windowclass>
 </root>

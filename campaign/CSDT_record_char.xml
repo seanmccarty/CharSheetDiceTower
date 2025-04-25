@@ -32,7 +32,7 @@
 	</windowclass>
 
 	<!-- Roll sequence adapted from ActionInit.performRoll so that it can be sent to the tower -->
-	<template name="number_charinit" merge="join">
+	<!-- <template name="number_charinit" merge="join">
 		<number_chartotal>
 			<script>
 				function onDoubleClick(x,y)
@@ -48,5 +48,5 @@
 				end
 			</script>
 		</number_chartotal>
-	</template>
+	</template> -->
 </root>
