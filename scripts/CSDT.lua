@@ -25,17 +25,8 @@ end
 function performDeathRoll(draginfo, rActor, bAuto)
 	-- if draginfo is defined, the icon is being dragged somewhere. Otherwise, it was a double click or death_auto, so we divert those.
 	if (not draginfo) and OptionsManager.isOption("TBOX", "on") and OptionsManager.isOption("CSDT_option_label_death", "on") then
-		local rRoll = { };
-		if bAuto then
-			rRoll.sType = "death_auto";
-		else
-			rRoll.sType = "death";
-		end
-		rRoll.aDice = DiceRollManager.getActorDice({ "d20" }, rActor);
-		rRoll.nMod = 0;
-		
-		rRoll.sDesc = "[DEATH]";
-		
+		local rRoll = ActionSave.getDeathRoll(rActor, bAuto);
+		ActionsManager.applyModifiers(rActor, nil, rRoll);
 		DiceTowerManager.sendRoll(rRoll, rActor);
 	else
 		fOriginalPerformDeathRoll(draginfo, rActor, bAuto);
