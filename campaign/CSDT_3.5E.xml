@@ -97,6 +97,24 @@
 		</number_linked>
 	</template>
 
+	<template name="number_charinit" merge="join">
+		<number_chartotal>
+			<script>
+				function onDoubleClick(x,y)
+					if OptionsManager.isOption("TBOX", "on") and OptionsManager.isOption("CSDT_option_label_initiative", "on") then
+						local rActor = ActorManager.resolveActor(window.getDatabaseNode());
+						local rRoll = ActionInit.getRoll(rActor);
+						ActionsManager.applyModifiers(rActor, nil, rRoll);
+						DiceTowerManager.sendRoll(rRoll, rActor);
+						return true;
+					else
+						return action();
+					end
+				end
+			</script>
+		</number_chartotal>
+	</template>
+
 	<template name="number_charinit_perception" merge="join" ruleset="PFRPG2|SFRPG2">
 		<number_chartotal>
 			<script>
