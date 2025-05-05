@@ -3,7 +3,7 @@
 	<!-- Adds the mini dice tower to the right of the portrait -->
 	<windowclass name="charsheet_overview" merge="join">
 		<sheetdata>
-			<genericcontrol name="CSDT_diceTower" insertbefore="overviewframe">
+			<genericcontrol name="CSDT_diceTower" insertbefore="name">
 				<anchored to="leftanchor" width="45" height="45" >
 					<top />
 					<left relation="relative" offset="2" postoffset="2" />
