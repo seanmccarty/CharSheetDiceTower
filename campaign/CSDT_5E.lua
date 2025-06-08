@@ -38,6 +38,6 @@ function onSaveAction(draginfo, sSave)
 		DiceTowerManager.sendRoll(rRoll, rActor);
 		return true;
 	else
-		super.onSaveAction(draginfo, sSave)
+		return super.onSaveAction(draginfo, sSave)
 	end
 end
